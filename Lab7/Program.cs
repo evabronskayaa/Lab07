@@ -12,8 +12,6 @@ namespace Lab07
             if (!input.Exists) { 
                 input.Create();
                 Console.WriteLine("Файл создан. Введите пример");
-
-                return;
             }
 
             string line = Console.ReadLine();
