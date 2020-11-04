@@ -15,7 +15,17 @@ namespace Lab07
             }
 
             string line = Console.ReadLine();
-            if (line.Length != 0)
+            CheckInput(path, line);
+        }
+        private static string GetPath(string path = "input.txt")
+        {
+            string filePath = Environment.CurrentDirectory;
+            filePath = @filePath.Substring(0, filePath.IndexOf("bin")) + path;
+            return filePath;
+        }
+        private static void CheckInput(string path, string line)
+        {
+            if (line != null)
             {
                 string[] elements = WriteToFile(path, line).Trim().Split(" ");
 
@@ -31,8 +41,8 @@ namespace Lab07
                         digit1 = Calculate(digit1, digit2, oper);
                     }
                     result = Convert.ToString(digit1);
-
-                } catch (Exception){
+                }
+                catch (Exception){
                     result = "Допущена ошибка в примере";
                 }
                 string path2 = GetPath("output.txt");
@@ -41,12 +51,6 @@ namespace Lab07
             else{
                 Console.WriteLine("Пример отсутствует");
             }
-        }
-        private static string GetPath(string path = "input.txt")
-        {
-            string filePath = Environment.CurrentDirectory;
-            filePath = @filePath.Substring(0, filePath.IndexOf("bin")) + path;
-            return filePath;
         }
         private static string WriteToFile(string path, string line)
         {
@@ -59,8 +63,7 @@ namespace Lab07
 
             return line;
         }
-        private static double Calculate(double x, double y, string oper)
-        {
+        private static double Calculate(double x, double y, string oper){
             switch (oper)
             {
                 case "+":
