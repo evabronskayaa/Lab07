@@ -7,27 +7,30 @@ namespace Lab07
     {
         static void Main(string[] args)
         {
-            string path = GetPath();
+            string path = GetPath("input.txt");
             FileInfo input = new FileInfo(path);
-            if (!input.Exists) { 
+            if (!input.Exists)
+            {
                 input.Create();
                 Console.WriteLine("Файл создан. Введите пример");
             }
 
             string line = Console.ReadLine();
-            CheckInput(path, line);
+            File.WriteAllText(path, line);
+            
+            GetResult(line);
         }
-        private static string GetPath(string path = "input.txt")
+        private static string GetPath(string path)
         {
             string filePath = Environment.CurrentDirectory;
-            filePath = @filePath.Substring(0, filePath.IndexOf("bin")) + path;
+            filePath = filePath.Substring(0, filePath.IndexOf("bin")) + path;
             return filePath;
         }
-        private static void CheckInput(string path, string line)
+        private static void GetResult(string line)
         {
             if (line != null)
             {
-                string[] elements = WriteToFile(path, line).Trim().Split(" ");
+                string[] elements = line.Replace("  ", " ").Trim().Split(" ");
 
                 string result;
                 try
@@ -51,17 +54,6 @@ namespace Lab07
             else{
                 Console.WriteLine("Пример отсутствует");
             }
-        }
-        private static string WriteToFile(string path, string line)
-        {
-            StreamWriter writer = new StreamWriter(path, false, System.Text.Encoding.Default);
-            writer.WriteLine(line);
-            writer.Close();
-
-            while (line.Contains("  "))
-                line = line.Replace("  ", " ");
-
-            return line;
         }
         private static double Calculate(double x, double y, string oper){
             switch (oper)
