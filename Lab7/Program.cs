@@ -7,24 +7,10 @@ namespace Lab07
     {
         static void Main(string[] args)
         {
-            string path = GetPath("input.txt");
-            FileInfo input = new FileInfo(path);
-            if (!input.Exists)
-            {
-                input.Create();
-                Console.WriteLine("Файл создан. Введите пример");
-            }
-
             string line = Console.ReadLine();
-            File.WriteAllText(path, line);
-            
+            File.WriteAllText("input.txt", line);
+
             GetResult(line);
-        }
-        private static string GetPath(string path)
-        {
-            string filePath = Environment.CurrentDirectory;
-            filePath = filePath.Substring(0, filePath.IndexOf("bin")) + path;
-            return filePath;
         }
         private static void GetResult(string line)
         {
@@ -48,8 +34,7 @@ namespace Lab07
                 catch (Exception){
                     result = "Допущена ошибка в примере";
                 }
-                string path2 = GetPath("output.txt");
-                File.WriteAllText(path2, result);
+                File.WriteAllText("output.txt", result);
             }
             else{
                 Console.WriteLine("Пример отсутствует");
